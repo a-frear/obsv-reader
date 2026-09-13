@@ -1,36 +1,228 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Down the shore
 
-## Getting Started
+A short story you read by turning pages, with pictures and video in it.
 
-First, run the development server:
+This is the reader. It's a prototype right now: four page templates, the opening
+excerpt, and stand-in grey boxes where the pictures will go.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+---
+
+## How the editor works
+
+The story will live on a private website. You log in and write there. While you
+work you see the real page, the same one a reader sees.
+
+It saves as you go and keeps all the old versions. You can't break it.
+
+---
+
+## Page templates
+
+Every page is one of these. You pick the type, then change how it looks with the
+dials further down.
+
+Four are built. The rest aren't yet. If one you want is missing, say so now while
+it's easy to add.
+
+In the drawings below, `░` is a picture or a clip, and the lines are text.
+
+**Title Card** — built
+
+```
+┌──────────────────────┐
+│                      │
+│      ━━━━━━━━━       │
+│        ──────        │
+│                      │
+└──────────────────────┘
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+The title, or a chapter break, on its own.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**Full Bleed** — built
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```
+┌──────────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░░░░░░░░░░░░░░░░│
+└──────────────────────┘
+```
 
-## Learn More
+One picture or clip filling the whole page. You can put a line of text on top.
 
-To learn more about Next.js, take a look at the following resources:
+**Text Page** — built
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```
+┌──────────────────────┐
+│  ─────────────       │
+│  ─────────────       │
+│  ─────────────       │
+│  ────────            │
+└──────────────────────┘
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Just words.
 
-## Deploy on Vercel
+**Diptych** — built
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+┌──────────────────────┐
+│░░░░░░░░░░░░  ──────  │
+│░░░░░░░░░░░░  ──────  │
+│░░░░░░░░░░░░  ────    │
+│░░░░░░░░░░░░          │
+└──────────────────────┘
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Two panels side by side. Each one can be a picture or text. You set where the
+split goes.
+
+**Plate** — not yet
+
+```
+┌──────────────────────┐
+│                      │
+│     ░░░░░░░░░░░      │
+│     ░░░░░░░░░░░      │
+│                      │
+└──────────────────────┘
+```
+
+A small picture on a big field of colour.
+
+**Triptych** — not yet
+
+```
+┌──────────────────────┐
+│ ░░░░░░ ░░░░░░ ░░░░░░ │
+│ ░░░░░░ ░░░░░░ ░░░░░░ │
+│ ░░░░░░ ░░░░░░ ░░░░░░ │
+│ ░░░░░░ ░░░░░░ ░░░░░░ │
+└──────────────────────┘
+```
+
+Three panels across.
+
+**Text Over Image** — not yet
+
+```
+┌──────────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░━━━━━━━━━━━━░░░░░░░░│
+│░░────────░░░░░░░░░░░░│
+└──────────────────────┘
+```
+
+Words on top of a picture. You pick which of nine spots they sit in.
+
+**Pull Quote** — not yet
+
+```
+┌──────────────────────┐
+│                      │
+│  ━━━━━━━━━━━━━━━━━━  │
+│  ━━━━━━━━━━━         │
+│                      │
+└──────────────────────┘
+```
+
+One line, very big, on its own.
+
+**Sequence** — not yet
+
+```
+┌──────────────────────┐
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░░░░░░░░░░░░░░░░│
+│░░░░░░░ ● ○ ○ ░░░░░░░░│
+└──────────────────────┘
+```
+
+A few pictures on one page. The reader clicks through them.
+
+**Mosaic** — not yet
+
+```
+┌──────────────────────┐
+│ ░░░░░ ░░░░░ ░░░░░    │
+│ ░░░░░ ░░░░░ ░░░░░    │
+│ ░░░░░ ░░░░░ ░░░░░    │
+│ ░░░░░ ░░░░░ ░░░░░    │
+└──────────────────────┘
+```
+
+A grid of small clips, all playing at once.
+
+**Colophon** — not yet
+
+```
+┌──────────────────────┐
+│                      │
+│                      │
+│        ──────        │
+│        ──────        │
+└──────────────────────┘
+```
+
+The end of the book. Credits, thanks, date.
+
+---
+
+## Dials
+
+Every template has the same dials. This is where your look comes from. Two Text
+Pages with different settings can feel like different books.
+
+| Dial | What it does |
+| --- | --- |
+| **Background** | The colour behind the page. Text colour changes so you can still read it. |
+| **Typeface** | Picked from a short list we choose together. |
+| **Text size** | Bigger or smaller, page by page. |
+| **Column width** | How wide the text runs before it wraps. Narrow and tall, or wide and short. |
+| **Letter spacing** | Tighter or looser. |
+| **Margins** | How much empty space sits around the page. From none to a lot. |
+| **How the page arrives** | Fade, rise, drift, or nothing. And how slowly it happens. |
+| **Picture treatment** | Black and white, more contrast, duotone, or grain. Your original file stays as it is. |
+| **Focal point** | Drag a dot onto the important part of a photo. If the photo gets cropped, that part stays. |
+| **On a phone** | What a two-panel page turns into on a small screen. Stacked, or just the picture, or just the words. |
+
+---
+
+## Pictures and video
+
+Upload GIFs the way you'd upload anything else. They get converted so they load
+faster. **They look the same.** If the grain and the jumpy loop are the point,
+you keep them.
+
+It also means one page can hold nine clips playing at once. A page of real GIFs
+can't do that. That's what Mosaic is for.
+
+Video works too. Anything with sound gets a play button instead of starting on
+its own.
+
+**One tip.** If you made a GIF from a video, send the video instead. Making a GIF
+throws away most of the colour and it can't be got back.
+
+---
+
+## Reading it
+
+Arrow keys turn the page. So does scrolling, swiping, or clicking the edges.
+Every page has its own web address, so you can link someone straight to page 7.
+
+---
+
+## Running it locally
+
+```bash
+npm install
+npm run dev
+```
+
+Then open http://localhost:3000.
+
+The story content is in `content/story.ts` until the editor is built.
