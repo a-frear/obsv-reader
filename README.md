@@ -2,6 +2,8 @@
 
 A short story you read by turning pages, with pictures and video in it.
 
+Netlify prototype link: https://obsv-reader.netlify.app/read/1
+
 ---
 
 ## Page templates
