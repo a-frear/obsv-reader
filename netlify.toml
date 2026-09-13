@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+
+# The site is password protected by netlify/edge-functions/auth.ts, which
+# declares its own route. The password is read from the SITE_PASSWORD
+# environment variable, set in the Netlify UI — never in this repo.
