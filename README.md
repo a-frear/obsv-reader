@@ -179,15 +179,8 @@ Pages with different settings can feel like different books.
 
 ## Pictures and video
 
-Upload GIFs the way you'd upload anything else. They get converted so they load
-faster. **They look the same.** If the grain and the jumpy loop are the point,
-you keep them.
-
-It also means one page can hold nine clips playing at once. A page of real GIFs
-can't do that. That's what Mosaic is for.
-
-Video works too. Anything with sound gets a play button instead of starting on
-its own.
+Supports images, gifs, and videos. Videos with sound get a play button instead of starting on
+their own.
 
 
 ---
