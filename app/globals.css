@@ -57,6 +57,12 @@ body {
 }
 .track::-webkit-scrollbar { display: none; }
 
+/* The track is focused on load so the keyboard works immediately. That focus
+   is programmatic, so it never matches :focus-visible and stays invisible;
+   someone actually tabbing here still gets an indicator. */
+.track:focus { outline: none; }
+.track:focus-visible { outline: 1px solid var(--ink); outline-offset: -3px; }
+
 .page {
   position: relative;
   flex: 0 0 100dvw;

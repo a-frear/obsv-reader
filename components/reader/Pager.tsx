@@ -149,6 +149,14 @@ export function Pager({ story, initialIndex }: { story: Story; initialIndex: num
     if ('scrollRestoration' in history) history.scrollRestoration = 'manual'
     track.scrollLeft = initialIndex * track.clientWidth
     ready.current = true
+
+    // Take focus into the reader, or the first arrow key goes nowhere.
+    // On a fresh load focus sits in the browser's own UI rather than the
+    // document — after dismissing a password dialog especially — and the
+    // keydown listener is on `window`, so it never sees that first press.
+    // preventScroll matters: focusing a scroll container otherwise yanks it
+    // back to the start and undoes the deep link above.
+    track.focus({ preventScroll: true })
   }, [initialIndex])
 
   // Track the current page off the scroll position, throttled to a frame.
