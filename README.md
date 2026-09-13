@@ -2,27 +2,12 @@
 
 A short story you read by turning pages, with pictures and video in it.
 
-This is the reader. It's a prototype right now: four page templates, the opening
-excerpt, and stand-in grey boxes where the pictures will go.
-
----
-
-## How the editor works
-
-The story will live on a private website. You log in and write there. While you
-work you see the real page, the same one a reader sees.
-
-It saves as you go and keeps all the old versions. You can't break it.
-
 ---
 
 ## Page templates
 
-Every page is one of these. You pick the type, then change how it looks with the
+Every page is a template. You pick the type, then change how it looks with the
 dials further down.
-
-Four are built. The rest aren't yet. If one you want is missing, say so now while
-it's easy to add.
 
 In the drawings below, `░` is a picture or a clip, and the lines are text.
 
@@ -204,8 +189,6 @@ can't do that. That's what Mosaic is for.
 Video works too. Anything with sound gets a play button instead of starting on
 its own.
 
-**One tip.** If you made a GIF from a video, send the video instead. Making a GIF
-throws away most of the colour and it can't be got back.
 
 ---
 
