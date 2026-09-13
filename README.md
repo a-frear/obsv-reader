@@ -140,7 +140,7 @@ A few pictures on one page. The reader clicks through them.
 └──────────────────────┘
 ```
 
-A grid of small clips, all playing at once.
+A grid of small images or clips all playing at once.
 
 **Colophon** — not yet
 
