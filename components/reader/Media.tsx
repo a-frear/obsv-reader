@@ -163,18 +163,25 @@ function Placeholder({
         background:
           'repeating-linear-gradient(135deg, color-mix(in srgb, var(--ink) 7%, transparent) 0 2px, transparent 2px 9px)',
         border: '1px solid var(--rule)',
-        display: 'grid',
-        placeItems: 'center',
       }}
     >
+      {/*
+        Cornered rather than centred: a centred label collides with overlay
+        text, which sits dead centre on exactly the pages most likely to be
+        full-bleed. Nothing here survives real assets, but it has to stay out
+        of the way while layouts are being judged.
+      */}
       <span
         style={{
-          font: '0.66rem var(--font-mono)',
+          position: 'absolute',
+          top: '0.9rem',
+          left: '0.9rem',
+          right: '0.9rem',
+          font: '0.62rem var(--font-mono)',
           letterSpacing: '0.1em',
           color: 'var(--ink-dim)',
+          opacity: 0.65,
           textTransform: 'uppercase',
-          textAlign: 'center',
-          padding: '0 2ch',
         }}
       >
         {kind} · {label}
@@ -189,6 +196,7 @@ function Placeholder({
             width: 9, height: 9, margin: '-4.5px 0 0 -4.5px',
             border: '1px solid var(--ink-dim)',
             borderRadius: '50%',
+            opacity: 0.5,
           }}
         />
       )}

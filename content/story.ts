@@ -1,154 +1,194 @@
 import type { Story } from '@/lib/types'
 
 /**
- * Phase 1 placeholder content.
+ * Test content: opening excerpt, author's text verbatim.
  *
- * Deliberately written rather than lorem-ipsum'd: you cannot judge a look
- * book's typography, measure, or rhythm against dummy text. Replaced wholesale
- * by Sanity in Phase 2 — the shape here is the shape the CMS will return.
+ * Paragraph breaks follow the source. Where a paragraph is split across pages
+ * the sentences are unchanged and in order — the sequencing below is an
+ * art-direction proposal, not an edit, and is the sort of decision that moves
+ * into her hands in Phase 2.
  *
- * Media uses `placeholder:<label>` sources, which the Media component renders
- * as labelled blocks. No external assets and no network dependency yet.
+ * Media uses `placeholder:<label>` sources, labelled with what each shot would
+ * actually be, and renders as labelled blocks until real assets land.
  */
 export const story: Story = {
-  title: 'Observances',
-  byline: 'placeholder text — for layout only',
+  // Placeholder — the author's own title replaces this.
+  title: 'Untitled',
+  byline: 'opening excerpt',
 
   pages: [
     {
       id: 'cover',
       archetype: 'titleCard',
-      title: 'Observances',
-      subtitle: 'a short story',
-      byline: 'placeholder edition',
-      ground: '#0e0e0c',
+      title: 'Untitled',
+      subtitle: 'opening excerpt',
+      byline: 'working draft',
+      ground: '#0d1114',
       typeface: 'serif',
       entry: 'fade',
       entryDuration: 900,
     },
+
     {
-      id: 'p1',
-      archetype: 'fullBleed',
-      media: {
-        kind: 'loop',
-        src: 'placeholder:harbour at 4am — loop',
-        alt: 'A harbour before dawn, water moving slowly.',
-        focal: { x: 0.5, y: 0.62 },
-        treatment: 'grayscale',
-      },
-      overlay: 'She had never seen the sea.',
-      overlayPosition: 'bottom-left',
-      ground: '#0e0e0c',
-      entry: 'fade-up',
-    },
-    {
-      id: 'p2',
+      id: 'p1-thanksgiving',
       archetype: 'textPage',
       body: [
-        'She had never seen the sea, and so the word arrived to her as a sound long before it was ever a place — something her grandmother said at the end of sentences, the way other people said *eventually*.',
-        'The tide came in regardless. That was the part nobody had thought to mention: that it would keep doing this, twice a day, with or without her, and had been doing it for the entire duration of her not having seen it.',
+        'They took the jet skis out for Thanksgiving, a mid-morning break before they were expected at the Sebastian’s dad’s condo for turkey frying on the pool deck.',
       ],
       align: 'left',
-      ground: '#f4f1ea',
+      ground: '#f2efe7',
       typeface: 'serif',
-      measure: 34,
+      measure: 36,
       typeScale: 1.15,
       entry: 'fade',
     },
+
     {
-      id: 'p3',
+      id: 'p2-wake',
+      archetype: 'fullBleed',
+      media: {
+        kind: 'loop',
+        src: 'placeholder:jet ski wake, GoPro under the jet — loop',
+        alt: 'Water churning behind a jet ski, shot from below the jet.',
+        focal: { x: 0.5, y: 0.58 },
+        treatment: 'contrast',
+      },
+      ground: '#0d1114',
+      entry: 'scale-in',
+      entryDuration: 1200,
+    },
+
+    {
+      id: 'p3-three-boys',
+      archetype: 'textPage',
+      body: [
+        'Three boys, besties since just after birth, almost. Daycare together in the basement of a bank, preschool together in the basement of a church, and kindergarten off island after the one in the basement out here flooded. Homies since. Attached at the hip.',
+      ],
+      align: 'left',
+      ground: '#f2efe7',
+      typeface: 'serif',
+      measure: 36,
+      typeScale: 1.15,
+      entry: 'fade',
+    },
+
+    {
+      id: 'p4-gopro',
       archetype: 'diptych',
       split: 62,
       left: {
         media: {
           kind: 'loop',
-          src: 'placeholder:gulls, 2s loop',
-          alt: 'Gulls turning over a breakwater.',
-          treatment: 'contrast',
+          src: 'placeholder:trash-bagged foot, GoPro hinge — loop',
+          alt: 'A foot wrapped in a taped plastic bag, resting near a GoPro on a hinge.',
+          treatment: 'grain',
         },
       },
       right: {
         text: [
-          'Her grandmother had described it once as *a field that could not keep still*.',
-          'This turned out to be exactly right, and no help at all.',
+          'Two jet skis bobbing by in rhythm — Sebastian, with his foot enclosed in a roughly taped over plastic trash bag, backed Geb on one — he fiddled with a GoPro on an extended hinge beneath the stream of the jet, tightening its bolts.',
         ],
       },
-      ground: '#0e0e0c',
+      ground: '#0d1114',
       typeface: 'serif',
+      measure: 30,
       mobile: 'stack',
       entry: 'rise',
     },
+
     {
-      id: 'p4',
-      archetype: 'fullBleed',
-      media: {
-        kind: 'image',
-        src: 'placeholder:breakwater, midday',
-        alt: 'A concrete breakwater under flat midday light.',
-        focal: { x: 0.38, y: 0.5 },
-      },
-      ground: '#0e0e0c',
-      entry: 'scale-in',
-      entryDuration: 1200,
-    },
-    {
-      id: 'p5',
-      archetype: 'textPage',
-      body: [
-        'What she had not expected was the noise. Not the waves — she had been told about the waves — but everything underneath them: the shingle turning over, the rigging, the particular sound of a wet rope taking weight.',
-        'She stood there long enough that the light changed twice.',
-      ],
-      align: 'left',
-      ground: '#f4f1ea',
-      typeface: 'serif',
-      measure: 34,
-      typeScale: 1.15,
-      entry: 'fade',
-    },
-    {
-      id: 'p6',
+      id: 'p5-julian',
       archetype: 'diptych',
-      split: 38,
+      split: 42,
       left: {
-        text: ['Twice a day.', 'With or without her.'],
+        text: [
+          'Julian sat side saddled on the other. They idled by the town’s best known tourist trap, their monument, a hollowed out blue whale, and within you can walk through a full reproduction of the cavities of its insides, Balooey the Blue Whale.',
+        ],
       },
       right: {
         media: {
           kind: 'video',
-          src: 'placeholder:long take — 40s, sound',
-          alt: 'A long static shot of the water at dusk.',
-          treatment: 'grayscale',
+          src: 'placeholder:Balooey from the water — 40s, sound',
+          alt: 'The blue whale monument seen from the water.',
+          treatment: 'none',
           hasAudio: true,
         },
       },
-      ground: '#15161a',
+      ground: '#111a1e',
       typeface: 'serif',
-      typeScale: 1.6,
+      measure: 28,
       mobile: 'stack',
       entry: 'wipe',
     },
+
     {
-      id: 'p7',
+      id: 'p6-balooey',
+      archetype: 'fullBleed',
+      media: {
+        kind: 'image',
+        src: 'placeholder:Balooey, mouth entrance',
+        alt: 'The entrance to the hollowed-out blue whale monument.',
+        focal: { x: 0.44, y: 0.52 },
+        treatment: 'none',
+      },
+      // No overlay: the prose names him on the page before, so the image is
+      // left to land on its own rather than repeating her line back.
+      ground: '#0d1114',
+      entry: 'fade-up',
+      entryDuration: 1000,
+    },
+
+    {
+      id: 'p7-dunes',
+      archetype: 'textPage',
+      body: [
+        'The water was frigid but the sun burned hot — too hot for November was normal now, but the beaches were closed for the season while they fortified the dunes.',
+      ],
+      align: 'left',
+      ground: '#f2efe7',
+      typeface: 'serif',
+      measure: 36,
+      typeScale: 1.15,
+      entry: 'fade',
+    },
+
+    {
+      id: 'p8-ghosts',
       archetype: 'fullBleed',
       media: {
         kind: 'loop',
-        src: 'placeholder:tide going out — loop',
-        alt: 'The tide withdrawing over flat sand.',
-        focal: { x: 0.5, y: 0.7 },
-        treatment: 'grain',
+        src: 'placeholder:fortified dune line, empty beach — loop',
+        alt: 'An empty beach behind a newly built dune line.',
+        focal: { x: 0.5, y: 0.66 },
+        treatment: 'grayscale',
       },
-      overlay: 'and had been doing it the whole time.',
+      overlay: 'Put simply, off season, the town was full of ghosts.',
       overlayPosition: 'middle-center',
-      ground: '#0e0e0c',
+      ground: '#0d1114',
       entry: 'fade-up',
       entryDuration: 1400,
     },
+
+    {
+      id: 'p9-write-offs',
+      archetype: 'textPage',
+      body: [
+        'Most of these houses on the shoreline were tax breaks for neo-oligarchs and the class below them. Old money, new money, whoever can afford the insurance on a home in a beach town.',
+        'Some of them preferred when the town would flood, more write offs to be had.',
+      ],
+      align: 'left',
+      ground: '#f2efe7',
+      typeface: 'serif',
+      measure: 36,
+      typeScale: 1.15,
+      entry: 'fade',
+    },
+
     {
       id: 'end',
       archetype: 'titleCard',
-      title: 'end',
-      subtitle: 'placeholder colophon',
-      ground: '#0e0e0c',
+      title: 'end of excerpt',
+      ground: '#0d1114',
       typeface: 'serif',
       entry: 'fade',
     },
