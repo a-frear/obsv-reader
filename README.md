@@ -77,7 +77,7 @@ split goes.
 └──────────────────────┘
 ```
 
-A small picture on a big field of colour.
+A small picture on a big field of color.
 
 **Triptych** — not yet
 
@@ -166,7 +166,7 @@ Pages with different settings can feel like different books.
 
 | Dial | What it does |
 | --- | --- |
-| **Background** | The colour behind the page. Text colour changes so you can still read it. |
+| **Background** | The color behind the page. Text color changes so you can still read it. |
 | **Typeface** | Picked from a short list we choose together. |
 | **Text size** | Bigger or smaller, page by page. |
 | **Column width** | How wide the text runs before it wraps. Narrow and tall, or wide and short. |
