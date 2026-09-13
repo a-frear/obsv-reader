@@ -1,26 +1,241 @@
 @import "tailwindcss";
 
+/* ---------------------------------------------------------------------------
+   Theme tokens
+   In Phase 2 these get generated from the Sanity `theme` document via
+   lib/tokens.ts. Declared here so the reader has a working system first.
+--------------------------------------------------------------------------- */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --ground: #0e0e0c;
+  --ink: #f4f1ea;
+  --ink-dim: color-mix(in srgb, var(--ink) 55%, transparent);
+  --rule: color-mix(in srgb, var(--ink) 18%, transparent);
+
+  --font-serif: ui-serif, "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, serif;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Per-page knobs, overridden inline by each section. */
+  --type-scale: 1;
+  --measure: 34ch;
+  --tracking: 0em;
+  --margin: 8vmin;
+  --entry-duration: 700ms;
+
+  --ease-out: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+html, body { height: 100%; }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background: var(--ground);
+  color: var(--ink);
+  font-family: var(--font-serif);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  /* The reader owns scrolling; the document itself never scrolls. */
+  overflow: hidden;
+}
+
+/* ---------------------------------------------------------------------------
+   The track
+   A horizontal scroll-snap container. Chosen over a JS pager for native
+   momentum, trackpad and touch support, real accessibility, and because it
+   still works with JS disabled.
+--------------------------------------------------------------------------- */
+.track {
+  display: flex;
+  height: 100dvh;
+  width: 100dvw;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  /* Without this, scrolling past the first page triggers browser back-nav. */
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+}
+.track::-webkit-scrollbar { display: none; }
+
+.page {
+  position: relative;
+  flex: 0 0 100dvw;
+  width: 100dvw;
+  height: 100dvh;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow: hidden;
+  background: var(--page-ground, var(--ground));
+  font-family: var(--page-font, var(--font-serif));
+  letter-spacing: var(--tracking);
+}
+
+.page__inner {
+  position: absolute;
+  inset: var(--margin);
+  display: flex;
+}
+
+/* ---------------------------------------------------------------------------
+   Entry motion
+   Driven by [data-active], set by the pager's IntersectionObserver. Pure CSS
+   in Phase 1; the `entry` knob maps onto these. Framer Motion only arrives if
+   an archetype genuinely needs orchestration CSS can't express.
+--------------------------------------------------------------------------- */
+.entry {
+  transition:
+    opacity var(--entry-duration) var(--ease-out),
+    transform var(--entry-duration) var(--ease-out),
+    clip-path var(--entry-duration) var(--ease-out);
+  will-change: opacity, transform;
+}
+
+[data-entry="fade"]     .entry { opacity: 0; }
+[data-entry="fade-up"]  .entry { opacity: 0; transform: translateY(2.5rem); }
+[data-entry="rise"]     .entry { opacity: 0; transform: translateY(6rem); }
+[data-entry="scale-in"] .entry { opacity: 0; transform: scale(1.06); }
+[data-entry="wipe"]     .entry { clip-path: inset(0 100% 0 0); }
+
+[data-active="true"] .entry {
+  opacity: 1;
+  transform: none;
+  clip-path: inset(0 0 0 0);
+}
+
+/* ---------------------------------------------------------------------------
+   Chrome: page counter, progress rule, edge navigation
+--------------------------------------------------------------------------- */
+.chrome {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.progress {
+  position: absolute;
+  left: 0; bottom: 0;
+  height: 1px;
+  background: var(--ink);
+  opacity: 0.35;
+  transition: width 220ms var(--ease-out), background-color 400ms var(--ease-out);
+}
+
+.counter {
+  position: absolute;
+  right: 2vmin; bottom: 2vmin;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+  transition: color 400ms var(--ease-out);
+}
+
+/* Real buttons, not invisible click-zone divs — keyboard reachable and
+   announced by screen readers. Visually near-silent until hover/focus. */
+.edge-nav {
+  position: absolute;
+  top: 0; bottom: 0;
+  width: min(14vw, 8rem);
+  pointer-events: auto;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 200ms var(--ease-out);
+  display: grid;
+  place-items: center;
+}
+.edge-nav:hover,
+.edge-nav:focus-visible { opacity: 0.75; }
+.edge-nav:focus-visible { outline: 1px solid var(--ink); outline-offset: -8px; }
+.edge-nav[data-side="prev"] { left: 0; }
+.edge-nav[data-side="next"] { right: 0; }
+.edge-nav:disabled { opacity: 0 !important; cursor: default; }
+
+/* ---------------------------------------------------------------------------
+   Motion preferences
+   With looping clips on most pages this is a hard requirement, not a nicety:
+   every entry collapses to a plain fade and loops freeze to their poster.
+--------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  .track { scroll-behavior: auto; }
+  .entry { transition: opacity 200ms linear; transform: none !important; clip-path: none !important; }
+  [data-entry] .entry { transform: none; clip-path: none; }
+}
+
+/* ---------------------------------------------------------------------------
+   Archetypes
+   One block per page template. Everything responsive keys off --type-scale,
+   --measure and --margin so a page's knobs drive layout rather than fixed px.
+--------------------------------------------------------------------------- */
+
+.prose p {
+  margin: 0 0 1.1em;
+  max-width: var(--measure);
+  font-size: calc(var(--type-scale) * clamp(1rem, 1.45vw + 0.55rem, 1.5rem));
+  line-height: 1.52;
+  color: var(--ink);
+  text-wrap: pretty;
+}
+.prose p:last-child { margin-bottom: 0; }
+.prose em { font-style: italic; }
+
+/* titleCard */
+.titlecard { flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 1.2rem; }
+.titlecard h1 {
+  margin: 0;
+  font-size: calc(var(--type-scale) * clamp(2.4rem, 7vw, 6rem));
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.titlecard .sub { margin: 0; font-size: clamp(0.9rem, 1.4vw, 1.1rem); color: var(--ink-dim); font-style: italic; }
+.titlecard .byline {
+  margin: 0; font-family: var(--font-mono); font-size: 0.66rem;
+  letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-dim);
+}
+
+/* fullBleed — media ignores the page margin; only the overlay respects it. */
+.fullbleed__media { position: absolute; inset: 0; }
+.fullbleed__overlay { position: absolute; inset: var(--margin); display: grid; pointer-events: none; }
+.fullbleed__overlay p {
+  margin: 0;
+  max-width: min(var(--measure), 100%);
+  font-size: calc(var(--type-scale) * clamp(1.3rem, 3.4vw, 2.6rem));
+  line-height: 1.2;
+  color: var(--ink);
+  text-shadow: 0 1px 40px color-mix(in srgb, #000 55%, transparent);
+}
+
+[data-pos^="top-"]    .fullbleed__overlay { align-content: start; }
+[data-pos^="middle-"] .fullbleed__overlay { align-content: center; }
+[data-pos^="bottom-"] .fullbleed__overlay { align-content: end; }
+[data-pos$="-left"]   .fullbleed__overlay { justify-items: start; text-align: left; }
+[data-pos$="-center"] .fullbleed__overlay { justify-items: center; text-align: center; }
+[data-pos$="-right"]  .fullbleed__overlay { justify-items: end; text-align: right; }
+
+/* textPage */
+.textpage { align-items: center; }
+.textpage[data-align="left"]   { justify-content: flex-start; }
+.textpage[data-align="center"] { justify-content: center; }
+.textpage[data-align="center"] .prose { text-align: center; }
+.textpage[data-align="right"]  { justify-content: flex-end; }
+.textpage[data-align="right"] .prose { text-align: right; }
+
+/* diptych */
+.diptych { gap: var(--margin); }
+.diptych__panel { position: relative; display: flex; align-items: center; min-width: 0; }
+.diptych__panel > .prose { width: 100%; }
+
+@media (max-width: 760px) {
+  /* The `mobile` knob decides what a two-panel page becomes on a phone. */
+  [data-mobile="stack"] .diptych { flex-direction: column; gap: calc(var(--margin) / 2); }
+  [data-mobile="stack"] .diptych__panel { flex: 1 1 auto !important; width: 100% !important; }
+  [data-mobile="mediaOnly"] .diptych__panel:not(:has(> div)) { display: none; }
+  [data-mobile="textOnly"] .diptych__panel:has(> div) { display: none; }
+  .fullbleed__overlay p { font-size: calc(var(--type-scale) * clamp(1.1rem, 6vw, 1.9rem)); }
 }
