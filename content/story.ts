@@ -1,7 +1,10 @@
 import type { Story } from '@/lib/types'
 
 /**
- * Test content: opening excerpt, author's text verbatim.
+ * Test content: opening excerpt.
+ *
+ * The author's text, with one correction she asked for: a stray "the" in
+ * "at the Sebastian's dad's condo". Otherwise unaltered.
  *
  * Paragraph breaks follow the source. Where a paragraph is split across pages
  * the sentences are unchanged and in order — the sequencing below is an
@@ -12,15 +15,14 @@ import type { Story } from '@/lib/types'
  * actually be, and renders as labelled blocks until real assets land.
  */
 export const story: Story = {
-  // Placeholder — the author's own title replaces this.
-  title: 'Untitled',
+  title: 'Down the shore',
   byline: 'opening excerpt',
 
   pages: [
     {
       id: 'cover',
       archetype: 'titleCard',
-      title: 'Untitled',
+      title: 'Down the shore',
       subtitle: 'opening excerpt',
       byline: 'working draft',
       ground: '#0d1114',
@@ -33,7 +35,7 @@ export const story: Story = {
       id: 'p1-thanksgiving',
       archetype: 'textPage',
       body: [
-        'They took the jet skis out for Thanksgiving, a mid-morning break before they were expected at the Sebastian’s dad’s condo for turkey frying on the pool deck.',
+        'They took the jet skis out for Thanksgiving, a mid-morning break before they were expected at Sebastian’s dad’s condo for turkey frying on the pool deck.',
       ],
       align: 'left',
       ground: '#f2efe7',
