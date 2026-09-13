@@ -1,4 +1,4 @@
-# Down the shore
+# OBSV Studies Reader Prototype
 
 A short story you read by turning pages, with pictures and video in it.
 
